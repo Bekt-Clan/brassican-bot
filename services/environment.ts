@@ -14,6 +14,7 @@ const ENVIRONMENT_SCHEMA = z.object({
     LOG_CHANNEL_ID: z.string(),
     GUILD_ID: z.string(),
     RANK_UPDATES_CHANNEL: z.string(),
+    RANK_CHANNEL: z.string(),
     WOM_API_KEY: z.string().optional(),
     DEVELOPER_DISCORD_CONTACT: z.string().optional(),
     JADE_RANK_ID: z.string(),

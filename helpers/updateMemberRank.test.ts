@@ -228,4 +228,29 @@ describe('helpers | updateMemberRank', () => {
             accountProgression: { max: true, inferno: true, quiver: true },
         });
     });
+
+    test('When a user is ranked for collection logs, then their account progression is automatically updated', async () => {
+        // Arrange
+        TestHelper.userHasAccountInfo({
+            accountProgression: { clogSlots: 32165 },
+        });
+
+        TestHelper.userHasWOMData({
+            latestSnapshot: {
+                data: {
+                    activities: {
+                        collections_logged: { score: 453 },
+                    },
+                },
+            },
+        });
+
+        // Act
+        await updateMemberRank(memberDiscordId, discordClient);
+
+        // Assert
+        TestHelper.expectAccountInfoToContain({
+            accountProgression: { clogSlots: 453 },
+        });
+    });
 });
