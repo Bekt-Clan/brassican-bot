@@ -30,7 +30,7 @@
         "@typescript-eslint/eslint-plugin": "^8.22.0",
         "@typescript-eslint/parser": "^8.22.0",
         "@wise-old-man/utils": "^3.3.7",
-        "discord.js": "^14.17.3",
+        "discord.js": "^14.18.0",
         "dotenv": "^16.4.7",
         "eslint": "^9.18.0",
         "eslint-config-google": "^0.14.0",
