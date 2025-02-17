@@ -27,7 +27,7 @@
         "@faker-js/faker": "^9.4.0",
         "@swc/jest": "^0.2.37",
         "@types/jest": "^29.5.14",
-        "@typescript-eslint/eslint-plugin": "^8.22.0",
+        "@typescript-eslint/eslint-plugin": "^8.24.0",
         "@typescript-eslint/parser": "^8.22.0",
         "@wise-old-man/utils": "^3.3.7",
         "discord.js": "^14.17.3",
