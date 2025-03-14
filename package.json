@@ -32,7 +32,7 @@
         "@wise-old-man/utils": "^3.3.8",
         "discord.js": "^14.17.3",
         "dotenv": "^16.4.7",
-        "eslint": "^9.19.0",
+        "eslint": "^9.22.0",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-jest": "^28.11.0",
