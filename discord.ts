@@ -36,7 +36,11 @@ export const initialize = async () => {
     // Load all commands from dir/subdirs on start
     client.commands = new Collection();
     const foldersPath = path.join(path.resolve(), 'commands');
-    const commandFolders = fs.readdirSync(foldersPath);
+    const commandFolders = fs
+        .readdirSync(foldersPath)
+        .filter((entity) =>
+            fs.statSync(path.join(foldersPath, entity)).isDirectory()
+        );
 
     for (const folder of commandFolders) {
         const commandsPath = path.join(foldersPath, folder);
