@@ -20,13 +20,13 @@ export const getCabbageBreakdown = (
     });
 
     const cabbageBreakdown = {
-        eventCabbages: memberData.eventCabbages,
+        eventCabbages: memberData.eventCabbages || 0,
         max: account.max ? configCabbages.max : 0,
         inferno: account.inferno ? configCabbages.inferno : 0,
         quiver: account.quiver ? configCabbages.quiver : 0,
         blorva: account.blorva ? configCabbages.blorva : 0,
         questCape: account.questCape ? configCabbages.questCape : 0,
-        clogSlots: clogCabbages,
+        clogSlots: clogCabbages || 0,
         caTier: configCabbages.ca[account.caTier] || 0,
         adTier: configCabbages.ad[account.adTier] || 0,
     } as { [key: string]: number };
@@ -40,6 +40,7 @@ export const getCabbageBreakdown = (
         playerDetails === undefined
             ? memberData.currentCabbages - sum
             : playerDetails.ehp + playerDetails.ehb;
+
     cabbageBreakdown.core = Math.floor(cabbageBreakdown.core);
     return cabbageBreakdown;
 };

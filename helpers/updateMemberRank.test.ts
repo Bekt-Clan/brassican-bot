@@ -253,4 +253,42 @@ describe('helpers | updateMemberRank', () => {
             accountProgression: { clogSlots: 453 },
         });
     });
+
+    test('When a user has a display name set on WOM, then this name is referenced in the rank updates message', async () => {
+        // Arrange
+        const RSN = faker.person.fullName();
+
+        const rankUpdatesChannelMock = {
+            send: jest.fn(),
+        };
+
+        (discordClient.channels.cache.get as jest.Mock).mockReturnValue(
+            rankUpdatesChannelMock
+        );
+
+        TestHelper.userHasAccountInfo({
+            currentCabbages: 0,
+            eventCabbages: 0,
+            currentRank: 'Jade',
+            accountProgression: {},
+        });
+
+        TestHelper.userHasWOMData({
+            displayName: RSN,
+            ehp: 500,
+            ehb: 500,
+        });
+
+        // Act
+        await updateMemberRank(memberDiscordId, discordClient);
+
+        // Assert
+        expect(rankUpdatesChannelMock.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                content: expect.stringContaining(
+                    `(RSN: \`${RSN}\`) needs their rank in game updated to:`
+                ),
+            })
+        );
+    });
 });
