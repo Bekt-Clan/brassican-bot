@@ -43,7 +43,10 @@ block of text:
 Brassican Bot Acknowledgements
 https://github.com/tomking/brassican-bot
 -   Bekt Clan: https://discord.gg/ujYPb8pcce
--   Lead Maintainer: (Thomas King) https://github.com/tomking
+-   Maintainers:
+    - Thomas/TR0P - https://github.com/tomking
+    - Dennis/Kojonkler - https://github.com/Kojonkler
+    - Disni - https://github.com/Disniew
 ```
 
 ## Contributing
@@ -51,14 +54,14 @@ https://github.com/tomking/brassican-bot
 Contributions to this project are welcome from all members of the community.
 Changes to the rank system must be decided on by the staff team, however
 suggestions are always welcome. Feel free to open issues within this repo to
-discuss anything to do with the technical aspects of the system (bug reports,
+discuss anything related to the technical aspects of the system (bug reports,
 feature requests, etc.). Use the `#suggestions` channel in the clan's Discord
 server for anything more general regarding the rank system. No support will be
 offered for the rank system through this repository (use the `#tickets` channel
 in the Discord server if you require assistance).
 
 If you would like to help out with the code please see the open issues or
-contact the current lead maintainer to get started. Pull requests are always
+contact the current maintainers to get started. Pull requests are always
 welcome and all help is appreciated! If you intend to open a pull request please
 do so on the [dev branch](https://github.com/tomking/brassican-bot/tree/dev) and
 write clear documentation both within your code and within your PR/commit
