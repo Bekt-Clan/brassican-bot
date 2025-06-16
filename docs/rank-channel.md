@@ -24,9 +24,7 @@
 > ### Staff
 > **<:goldKey:1128048550585057413> Gold Key** - Owner (@bekt.)
 > 
-> **<:silverKey:1128048636744441946> Silver Key** - Admin (<@138705528455954433>)
-> 
-> **<:goldStarBar:1324822562911420537> Gold Star w/ Bar** - Assistant Admins
+> **<:silverKey:1128048636744441946> Silver Key** - Admins (<@564427182076854294>, <@649182905699926056> and <@120656367412314112>)
 > 
 > **<:goldStar:1128073700630085662> Gold Star** - Moderators
 > 
