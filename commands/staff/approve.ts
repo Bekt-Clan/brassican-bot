@@ -194,7 +194,8 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
         !(interaction.member as GuildMember).roles.cache.some(
             (role: Role) =>
                 role.id === Environment.DISCORD_MOD_ROLE_ID ||
-                role.id === Environment.DISCORD_CA_ROLE_ID
+                role.id === Environment.DISCORD_CA_ROLE_ID ||
+                role.id === Environment.DISCORD_ADMIN_ROLE_ID
         )
     ) {
         await interaction.editReply(
