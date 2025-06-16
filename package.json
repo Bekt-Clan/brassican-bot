@@ -24,14 +24,14 @@
     },
     "homepage": "https://github.com/tomking/brassican-bot#readme",
     "dependencies": {
-        "@faker-js/faker": "^9.4.0",
-        "@swc/jest": "^0.2.37",
+        "@faker-js/faker": "^9.8.0",
+        "@swc/jest": "^0.2.38",
         "@types/jest": "^29.5.14",
         "@typescript-eslint/eslint-plugin": "^8.22.0",
         "@typescript-eslint/parser": "^8.26.1",
-        "@wise-old-man/utils": "^3.3.8",
+        "@wise-old-man/utils": "^3.3.11",
         "discord.js": "^14.19.3",
-        "dotenv": "^16.4.7",
+        "dotenv": "^16.5.0",
         "eslint": "^9.27.0",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^9.1.0",
@@ -46,7 +46,7 @@
         "prettier": "^3.5.3",
         "tsx": "^4.19.2",
         "typescript-eslint": "^8.32.1",
-        "zod": "^3.24.1"
+        "zod": "^3.25.64"
     },
     "devDependencies": {
         "@types/migrate-mongo": "^10.0.5",

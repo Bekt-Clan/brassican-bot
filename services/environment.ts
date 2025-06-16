@@ -11,6 +11,7 @@ const ENVIRONMENT_SCHEMA = z.object({
     WOM_GROUP_VERIFICATION_CODE: z.string(),
     DISCORD_MOD_ROLE_ID: z.string(),
     DISCORD_CA_ROLE_ID: z.string(),
+    DISCORD_ADMIN_ROLE_ID: z.string(),
     LOG_CHANNEL_ID: z.string(),
     GUILD_ID: z.string(),
     RANK_UPDATES_CHANNEL: z.string(),
