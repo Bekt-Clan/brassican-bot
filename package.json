@@ -45,7 +45,7 @@
         "node-cron": "^3.0.3",
         "prettier": "^3.5.3",
         "tsx": "^4.19.2",
-        "typescript-eslint": "^8.32.1",
+        "typescript-eslint": "^8.36.0",
         "zod": "^3.25.64"
     },
     "devDependencies": {
