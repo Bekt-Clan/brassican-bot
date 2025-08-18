@@ -28,7 +28,7 @@
         "@swc/jest": "^0.2.38",
         "@types/jest": "^29.5.14",
         "@typescript-eslint/eslint-plugin": "^8.22.0",
-        "@typescript-eslint/parser": "^8.26.1",
+        "@typescript-eslint/parser": "^8.39.1",
         "@wise-old-man/utils": "^3.3.11",
         "discord.js": "^14.19.3",
         "dotenv": "^16.5.0",
