@@ -1,17 +1,17 @@
+import { ButtonStyle } from 'discord-api-types/v10';
 import {
     ActionRowBuilder,
     ButtonBuilder,
     Client,
     TextChannel,
 } from 'discord.js';
-import { ButtonStyle } from 'discord-api-types/v10';
 
-import { Environment } from '../services/environment';
-import { mapPointsToRank } from './mapPointsToRank';
-import { getCabbageBreakdown } from './calculateCabbages';
-import { IMember, Member } from '../models/member';
-import { getWOMClient } from '../config/wom';
 import { PlayerDetails } from '@wise-old-man/utils';
+import { getWOMClient } from '../config/wom';
+import { IMember, Member } from '../models/member';
+import { Environment } from '../services/environment';
+import { getCabbageBreakdown } from './calculateCabbages';
+import { mapPointsToRank } from './mapPointsToRank';
 
 export const updateMemberRank = async (
     memberDiscordId: string,
@@ -53,7 +53,7 @@ export const updateMemberRank = async (
 
     const { data: latestSnapshotData } = playerDetails?.latestSnapshot || {};
 
-    if (latestSnapshotData?.skills?.overall?.level === 2277) {
+    if (latestSnapshotData?.skills?.overall?.level === 2376) {
         memberData.accountProgression.max = true;
     }
 
