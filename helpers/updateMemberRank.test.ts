@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 
-import { updateMemberRank } from './updateMemberRank';
-import { IMember, Member } from '../models/member';
-import { getWOMClient } from '../config/wom';
-import { DeepPartial } from '../utils/deepPartial';
 import { PlayerDetails } from '@wise-old-man/utils';
 import { Client } from 'discord.js';
+import { getWOMClient } from '../config/wom';
+import { IMember, Member } from '../models/member';
+import { DeepPartial } from '../utils/deepPartial';
+import { updateMemberRank } from './updateMemberRank';
 
 jest.mock('../models/member');
 jest.mock('../config/wom');
@@ -160,7 +160,7 @@ describe('helpers | updateMemberRank', () => {
             latestSnapshot: {
                 data: {
                     skills: {
-                        overall: { level: 2276 },
+                        overall: { level: 2375 },
                     },
                 },
             },
@@ -185,7 +185,7 @@ describe('helpers | updateMemberRank', () => {
             latestSnapshot: {
                 data: {
                     skills: {
-                        overall: { level: 2277 },
+                        overall: { level: 2376 },
                     },
                 },
             },
