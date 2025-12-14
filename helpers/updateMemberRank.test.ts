@@ -210,7 +210,7 @@ describe('helpers | updateMemberRank', () => {
             latestSnapshot: {
                 data: {
                     skills: {
-                        overall: { level: 2276 },
+                        overall: { level: 2375 },
                     },
                     bosses: {
                         tzkal_zuk: { kills: 0 },

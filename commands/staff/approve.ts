@@ -2,13 +2,13 @@ import {
     ChatInputCommandInteraction,
     GuildMember,
     Role,
-    TextChannel,
     SlashCommandBuilder,
+    TextChannel,
 } from 'discord.js';
 
-import { Environment } from '../../services/environment';
-import { AD_TIER, CA_TIER, Member } from '../../models/member';
 import { updateMemberRank } from '../../helpers/updateMemberRank';
+import { AD_TIER, CA_TIER, Member } from '../../models/member';
+import { Environment } from '../../services/environment';
 
 export const data = new SlashCommandBuilder()
     .setName('approve')
@@ -56,6 +56,19 @@ export const data = new SlashCommandBuilder()
         subcommand
             .setName('blorva')
             .setDescription('[STAFF ONLY] Approve ancient blood ornament kit')
+            .addUserOption((option) =>
+                option
+                    .setName('user')
+                    .setDescription(
+                        'The member whose submission you are approving'
+                    )
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
+            .setName('radiant')
+            .setDescription('[STAFF ONLY] Approve purifying sigil')
             .addUserOption((option) =>
                 option
                     .setName('user')
@@ -252,6 +265,11 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
         case 'blorva':
             submissionLogString = 'blorva completion';
             memberData.accountProgression.blorva = true;
+            break;
+
+        case 'radiant':
+            submissionLogString = 'purifying sigil completion';
+            memberData.accountProgression.radiant = true;
             break;
 
         case 'quest-cape':
