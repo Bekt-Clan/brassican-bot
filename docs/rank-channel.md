@@ -89,12 +89,10 @@ We try to automate everything as much as possible, but certain things require yo
 
 The following is a list of which bonus cabbage tasks require manual submission (if something isn't on this list it will automatically get added to your account the next time our system updates it -- if you are itching to get your cabbages ASAP, feel free to open a ticket and a mod can manually trigger an update for your account!)
 
-> - <:Quiver:1288196926805905509> First Quiver
 > - <:Blorva:1322872291897511936> First full Blorva
 > - <:QuestPoint:1291163775415877663> First Quest Point Cape
 > - <:Achievement_Diaries:1288198113583956129> Your highest Achievement Diary tier
 > - <:Combat_achievements:1288198896362717256> Your highest Combat Achievement tier
-> - <:Collection_log:1288197743805730970> Every 100 Collection Log slots
 
 ## Viewing Your Stats
 

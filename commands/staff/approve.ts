@@ -2,56 +2,17 @@ import {
     ChatInputCommandInteraction,
     GuildMember,
     Role,
-    TextChannel,
     SlashCommandBuilder,
+    TextChannel,
 } from 'discord.js';
 
-import { Environment } from '../../services/environment';
-import { AD_TIER, CA_TIER, Member } from '../../models/member';
 import { updateMemberRank } from '../../helpers/updateMemberRank';
+import { AD_TIER, CA_TIER, Member } from '../../models/member';
+import { Environment } from '../../services/environment';
 
 export const data = new SlashCommandBuilder()
     .setName('approve')
     .setDescription('[STAFF ONLY] Approve a rank submission')
-    .addSubcommand((subcommand) =>
-        subcommand
-            .setName('max-cape')
-            .setDescription('[STAFF ONLY] Approve max cape')
-            .addUserOption((option) =>
-                option
-                    .setName('user')
-                    .setDescription(
-                        'The member whose submission you are approving'
-                    )
-                    .setRequired(true)
-            )
-    )
-    .addSubcommand((subcommand) =>
-        subcommand
-            .setName('infernal-cape')
-            .setDescription('[STAFF ONLY] Approve infernal cape')
-            .addUserOption((option) =>
-                option
-                    .setName('user')
-                    .setDescription(
-                        'The member whose submission you are approving'
-                    )
-                    .setRequired(true)
-            )
-    )
-    .addSubcommand((subcommand) =>
-        subcommand
-            .setName('quiver')
-            .setDescription("[STAFF ONLY] Approve Dizana's quiver")
-            .addUserOption((option) =>
-                option
-                    .setName('user')
-                    .setDescription(
-                        'The member whose submission you are approving'
-                    )
-                    .setRequired(true)
-            )
-    )
     .addSubcommand((subcommand) =>
         subcommand
             .setName('blorva')
@@ -69,27 +30,6 @@ export const data = new SlashCommandBuilder()
         subcommand
             .setName('quest-cape')
             .setDescription('[STAFF ONLY] Approve quest cape')
-            .addUserOption((option) =>
-                option
-                    .setName('user')
-                    .setDescription(
-                        'The member whose submission you are approving'
-                    )
-                    .setRequired(true)
-            )
-    )
-    .addSubcommand((subcommand) =>
-        subcommand
-            .setName('collection-log')
-            .setDescription('[STAFF ONLY] Approve collection log slots')
-            .addIntegerOption((option) =>
-                option
-                    .setName('slots')
-                    .setDescription(
-                        'The current number of collection log slots the user has filled'
-                    )
-                    .setRequired(true)
-            )
             .addUserOption((option) =>
                 option
                     .setName('user')
@@ -234,21 +174,6 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
     // Update memberData based on submission
     switch (interaction.options.getSubcommand()) {
-        case 'max-cape':
-            submissionLogString = 'max cape completion';
-            memberData.accountProgression.max = true;
-            break;
-
-        case 'infernal-cape':
-            submissionLogString = 'inferno completion';
-            memberData.accountProgression.inferno = true;
-            break;
-
-        case 'quiver':
-            submissionLogString = 'quiver completion';
-            memberData.accountProgression.quiver = true;
-            break;
-
         case 'blorva':
             submissionLogString = 'blorva completion';
             memberData.accountProgression.blorva = true;
@@ -257,14 +182,6 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
         case 'quest-cape':
             submissionLogString = 'quest cape completion';
             memberData.accountProgression.questCape = true;
-            break;
-
-        case 'collection-log':
-            memberData.accountProgression.clogSlots =
-                interaction.options.getInteger('slots')!;
-            submissionLogString = `${interaction.options.getInteger(
-                'slots'
-            )} collection log slots`;
             break;
 
         case 'achievement-diary':
