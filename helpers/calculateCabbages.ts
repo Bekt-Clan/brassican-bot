@@ -25,6 +25,7 @@ export const getCabbageBreakdown = (
         inferno: account.inferno ? configCabbages.inferno : 0,
         quiver: account.quiver ? configCabbages.quiver : 0,
         blorva: account.blorva ? configCabbages.blorva : 0,
+        radiant: account.radiant ? configCabbages.radiant : 0,
         questCape: account.questCape ? configCabbages.questCape : 0,
         clogSlots: clogCabbages || 0,
         caTier: configCabbages.ca[account.caTier] || 0,
