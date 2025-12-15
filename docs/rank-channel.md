@@ -61,16 +61,17 @@ We also want your rank to represent how active you are in the clan. To achieve t
 
 ## <:cabbageclassic:822481888320159775> Bonus Cabbages <:cabbageclassic:822481888320159775>
 
-We will also give some bonus cabbages for specific account progression milestones (you can chose which account to have count for each bonus).
+We will also give you some one-off bonus cabbages for specific account progression milestones (you can chose which account to have count for each bonus).
 
-> - <:maxCape:894132463281012776> Max Cape earns 100 Cabbages
-> - <:Inferno:745534546820333669> First Inferno Cape earns 100 Cabbages
-> - <:Quiver:1288196926805905509> First Quiver earns 100 Cabbages
-> - <:Blorva:1322872291897511936> First full Blorva earns 100 Cabbages
-> - <:QuestPoint:1291163775415877663> First Quest Point Cape earns 100 Cabbages
-> - <:Achievement_Diaries:1288198113583956129> Your highest achievement diary tier earns the respective number of points:  
+> - <:maxCape:894132463281012776> Achieving Max Cape earns 100 Cabbages
+> - <:Inferno:745534546820333669> Achieving Inferno Cape earns 100 Cabbages
+> - <:Quiver:1288196926805905509> Achieving Quiver earns 100 Cabbages
+> - <:Blorva:1322872291897511936> Achieving Ancient Blood Ornament Kit earns 100 Cabbages
+> - <:Radiant:1449698968819863736> Achieving Purifying Sigil earns 100 Cabbages
+> - <:QuestPoint:1291163775415877663> Achieving Quest Point Cape earns 100 Cabbages
+> - <:Achievement_Diaries:1288198113583956129> Your highest Achievement Diary tier completed across all diaries earns the respective points:
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100)
-> - <:Combat_achievements:1288198896362717256> Your highest Combat Achievement tier earns the respective number of points:  
+> - <:Combat_achievements:1288198896362717256> Your highest Combat Achievement tier (points-based) earns the respective number of points:  
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100 | Master 150 | Grandmaster 250)
 > - <:Collection_log:1288197743805730970> Every 100 Collection Log slots filled earn 25 cabbages
 > - 🎉 Every 500th Collection Log slot that is filled earns a bonus 50 Cabbages
@@ -90,10 +91,11 @@ We try to automate everything as much as possible, but certain things require yo
 The following is a list of which bonus cabbage tasks require manual submission (if something isn't on this list it will automatically get added to your account the next time our system updates it -- if you are itching to get your cabbages ASAP, feel free to open a ticket and a mod can manually trigger an update for your account!)
 
 > - <:Quiver:1288196926805905509> First Quiver
-> - <:Blorva:1322872291897511936> First full Blorva
-> - <:QuestPoint:1291163775415877663> First Quest Point Cape
-> - <:Achievement_Diaries:1288198113583956129> Your highest Achievement Diary tier
-> - <:Combat_achievements:1288198896362717256> Your highest Combat Achievement tier
+> - <:Blorva:1322872291897511936> Ancient Blood Ornament Kit
+> - <:Radiant:1449698968819863736> Purifying Sigil
+> - <:QuestPoint:1291163775415877663> Quest Point Cape
+> - <:Achievement_Diaries:1288198113583956129> Highest Achievement Diary tier completed across all diaries
+> - <:Combat_achievements:1288198896362717256> Highest Combat Achievement tier achieved via points
 > - <:Collection_log:1288197743805730970> Every 100 Collection Log slots
 
 ## Viewing Your Stats

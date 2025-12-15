@@ -23,6 +23,7 @@ export interface IMember extends mongoose.Document {
         inferno: boolean;
         quiver: boolean;
         blorva: boolean;
+        radiant: boolean;
         questCape: boolean;
         clogSlots: number;
         caTier: CA_TIER;
@@ -44,6 +45,7 @@ export const MemberSchema = new mongooseClient.Schema<IMember>({
         inferno: { type: Boolean, default: false },
         quiver: { type: Boolean, default: false },
         blorva: { type: Boolean, default: false },
+        radiant: { type: Boolean, default: false },
         questCape: { type: Boolean, default: false },
         clogSlots: { type: Number, default: 0 },
         caTier: { type: String, default: null, uppercase: true }, // For example "GRANDMASTER"
