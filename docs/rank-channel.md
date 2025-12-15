@@ -90,13 +90,11 @@ We try to automate everything as much as possible, but certain things require yo
 
 The following is a list of which bonus cabbage tasks require manual submission (if something isn't on this list it will automatically get added to your account the next time our system updates it -- if you are itching to get your cabbages ASAP, feel free to open a ticket and a mod can manually trigger an update for your account!)
 
-> - <:Quiver:1288196926805905509> First Quiver
 > - <:Blorva:1322872291897511936> Ancient Blood Ornament Kit
 > - <:Radiant:1449698968819863736> Purifying Sigil
 > - <:QuestPoint:1291163775415877663> Quest Point Cape
 > - <:Achievement_Diaries:1288198113583956129> Highest Achievement Diary tier completed across all diaries
 > - <:Combat_achievements:1288198896362717256> Highest Combat Achievement tier achieved via points
-> - <:Collection_log:1288197743805730970> Every 100 Collection Log slots
 
 ## Viewing Your Stats
 
