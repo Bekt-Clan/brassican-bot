@@ -57,7 +57,7 @@ We also want your rank to represent how active you are in the clan. To achieve t
 > - <:Check:1291164107554422815> Recruiting someone new into the clan earns 25 Cabbages (they must join Discord and the in-game clan)
 > - <:BINGO:1202012145219538994> Active bingo participants will earn cabbages based on where they finish
 > - <:heart:646398269915791391>  Hosting a meaningful event earns a variable number depending on the event. Events must be discussed and agreed with Moderators / Admins before being hosted to count
-> - <:Clue_medium:1128097067324162068> Sporadic bounties earn variable numbers (ex. 'first person to get a pair of ranger boots will earn 10 cabbages', or 'first person to find <@138705528455954433> earns 20 cabbages')
+> - :mag: Sporadic bounties earn variable numbers (ex. 'first person to get a pair of ranger boots will earn 10 cabbages', or 'first person to find <@138705528455954433> earns 20 cabbages')
 
 ## <:cabbageclassic:822481888320159775> Bonus Cabbages <:cabbageclassic:822481888320159775>
 
