@@ -28,6 +28,19 @@ export const data = new SlashCommandBuilder()
     )
     .addSubcommand((subcommand) =>
         subcommand
+            .setName('radiant')
+            .setDescription('[STAFF ONLY] Approve purifying sigil')
+            .addUserOption((option) =>
+                option
+                    .setName('user')
+                    .setDescription(
+                        'The member whose submission you are approving'
+                    )
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand((subcommand) =>
+        subcommand
             .setName('quest-cape')
             .setDescription('[STAFF ONLY] Approve quest cape')
             .addUserOption((option) =>
@@ -177,6 +190,11 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
         case 'blorva':
             submissionLogString = 'blorva completion';
             memberData.accountProgression.blorva = true;
+            break;
+
+        case 'radiant':
+            submissionLogString = 'purifying sigil completion';
+            memberData.accountProgression.radiant = true;
             break;
 
         case 'quest-cape':

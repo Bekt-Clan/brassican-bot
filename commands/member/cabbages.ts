@@ -1,14 +1,14 @@
+import { ButtonStyle, ComponentType } from 'discord-api-types/v10';
 import {
-    ButtonInteraction,
-    ChatInputCommandInteraction,
-    Emoji,
-    GuildMember,
     ActionRowBuilder,
     ButtonBuilder,
+    ButtonInteraction,
+    ChatInputCommandInteraction,
     EmbedBuilder,
+    Emoji,
+    GuildMember,
     SlashCommandBuilder,
 } from 'discord.js';
-import { ButtonStyle, ComponentType } from 'discord-api-types/v10';
 
 import { getDiscordClient, ModifiedDiscordClient } from '../../discord';
 import {
@@ -95,6 +95,11 @@ const mobileBreakdown = (member: GuildMember, memberData: IMember) => {
         textArray.push('╠--------------+--------+----------╣');
         textArray.push(`║    Blorva    |   ok   |${blorvaCabbages}║`);
     }
+    if (account.radiant) {
+        const radiantCabbages = pad(cabbageBreakdown.radiant, 10);
+        textArray.push('╠--------------+--------+----------╣');
+        textArray.push(`║   Radiant    |   ok   |${radiantCabbages}║`);
+    }
     if (account.questCape) {
         const qpcCabbages = pad(cabbageBreakdown.questCape, 10);
         textArray.push('╠--------------+--------+----------╣');
@@ -176,6 +181,12 @@ const cabbageEmbed = (member: GuildMember, memberData: IMember) => {
         achievementText.push(`${blorvaEmoji} Blorva`);
         statusText.push(checkmark);
         cabbagesText.push(cabbageBreakdown.blorva);
+    }
+    if (account.radiant) {
+        const radiantEmoji = findEmoji(client, 'Radiant');
+        achievementText.push(`${radiantEmoji} Radiant`);
+        statusText.push(checkmark);
+        cabbagesText.push(cabbageBreakdown.radiant);
     }
     if (account.questCape) {
         const qpcEmoji = findEmoji(client, 'questpoint');
