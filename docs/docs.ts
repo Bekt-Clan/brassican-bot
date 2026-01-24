@@ -44,7 +44,7 @@ const isHeader = (text: string): boolean =>
 const resolveEmojis = (text: string): string => {
     return text.replace(
         /\<app_emoji:([\w-]+)\>/g,
-        (_, name) => findApplicationEmoji(name)?.toString() ?? ''
+        (_, name) => findApplicationEmoji(name).toString()
     );
 };
 
