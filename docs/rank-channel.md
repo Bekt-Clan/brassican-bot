@@ -1,79 +1,79 @@
 # Rank Overview
 
 ## Main Member Ranks
-> **<:jadeGem:1128047634737799300> Jade** - New Member/Cute Noob
+> **<app_emoji:jade_gem> Jade** - New Member/Cute Noob
 > 
-> **<:redtopazGem:1128047562612559954> Red Topaz** - 100 Cabbages
+> **<app_emoji:redtopaz_gem> Red Topaz** - 100 Cabbages
 > 
-> **<:sapphireGem:1128047464721690724> Sapphire** - 250 Cabbages
+> **<app_emoji:sapphire_gem> Sapphire** - 250 Cabbages
 > 
-> **<:emeraldGem:1128047386615357622> Emerald** - 500 Cabbages
+> **<app_emoji:emerald_gem> Emerald** - 500 Cabbages
 > 
-> **<:rubyGem:1128047281778720838> Ruby** - 850 Cabbages
+> **<app_emoji:ruby_gem> Ruby** - 850 Cabbages
 > 
-> **<:diamondGem:1128047004631711886> Diamond** - 1,400 Cabbages
+> **<app_emoji:diamond_gem> Diamond** - 1,400 Cabbages
 > 
-> **<:dragonstoneGem:1128043070131294281> Dragon Stone** - 2,000 Cabbages
+> **<app_emoji:dragonstone_gem> Dragon Stone** - 2,000 Cabbages
 > 
-> **<:onyxGem:1128047924417417227> Onyx** - 3,500 Cabbages
+> **<app_emoji:onyx_gem> Onyx** - 3,500 Cabbages
 > 
-> **<:zenyteGem:1128047855752466596> Zenyte** - 6,000 Cabbages
+> **<app_emoji:zenyte_gem> Zenyte** - 6,000 Cabbages
 
 
 ## Special Ranks
 > ### Staff
-> **<:goldKey:1128048550585057413> Gold Key** - Owner (@bekt.)
+> **<app_emoji:gold_key> Gold Key** - Owner (@bekt.)
 > 
-> **<:silverKey:1128048636744441946> Silver Key** - Admins (<@564427182076854294>, <@649182905699926056> and <@120656367412314112>)
+> **<app_emoji:silver_key> Silver Key** - Admins (<@564427182076854294>, <@649182905699926056> and <@120656367412314112>)
 > 
-> **<:goldStar:1128073700630085662> Gold Star** - Moderators
+> **<app_emoji:gold_star> Gold Star** - Moderators
 > 
-> **<:silverStar:1128073764605800558> Silver Star** - Community Assistants
+> **<app_emoji:silver_star> Silver Star** - Community Assistants
 > 
 > ### Misc.
-> **<:cabbageclassic:822481888320159775> Cabbage** - Current OTW/Event Winner (given for 2 weeks)
+> **<app_emoji:cabbage> Cabbage** - Current OTW/Event Winner (given for 2 weeks)
 > 
-> **<:heart:1324825053887467655> Heart** - Retired Staff Member
+> **<app_emoji:medic> Heart** - Retired Staff Member
 > 
-> **<:maxCape:894132463281012776> Max Cape** - Recently Maxed (given for 2 weeks)
+> **<app_emoji:max_cape> Max Cape** - Recently Maxed (given for 2 weeks)
 > 
-> **<:infernoCape:894132334637486080> Inferno Cape** - Recently Completed First Inferno (given for 2 weeks)
+> **<app_emoji:infernal_cape> Infernal Cape** - Recently Completed First Inferno (given for 2 weeks)
 > 
-> **<:kittenRank:1128048700946649089> Kitten** - Not in the Clan Discord
+> **<app_emoji:kitten> Kitten** - Not in the Clan Discord
 # Cabbage Details
 
-*Our system is fundamentally based on points. You can earn these points in a variety of ways and we call them <:cabbageclassic:822481888320159775>cabbages<:cabbageclassic:822481888320159775>! Generally the more active you are in the clan and in game, the more cabbages you will amass and the higher your rank will be.*
+*Our system is fundamentally based on points. You can earn these points in a variety of ways and we call them <app_emoji:cabbage>cabbages<app_emoji:cabbage>! Generally the more active you are in the clan and in game, the more cabbages you will amass and the higher your rank will be.*
 
-## <:cabbageclassic:822481888320159775> Core Cabbages <:cabbageclassic:822481888320159775>
+## <app_emoji:cabbage> Core Cabbages <app_emoji:cabbage>
 
-Everyone gets a base set of cabbages that will grow as they play OSRS. We call these core cabbages and they are your [EHP + EHB](<https://oldschool.runescape.wiki/w/Slang_dictionary/E>) on your main account. These are updated approximately every week and rank updates should automatically occur as this happens. We do this by pulling each member's stats from wiseoldman <:WiseOldMan:1052019995200212993>!
+Everyone gets a base set of cabbages that will grow as they play OSRS. We call these core cabbages and they are your [EHP + EHB](<https://oldschool.runescape.wiki/w/Slang_dictionary/E>) on your main account. These are updated approximately every week and rank updates should automatically occur as this happens. We do this by pulling each member's stats from wiseoldman <app_emoji:wom>!
 
-## <:cabbageclassic:822481888320159775> Clan Cabbages <:cabbageclassic:822481888320159775>
+## <app_emoji:cabbage> Clan Cabbages <app_emoji:cabbage>
 
 We also want your rank to represent how active you are in the clan. To achieve this, we give cabbages as a reward for activities in the clan. Some of the ways to earn these cabbages are as follows:
 
 > - 🥇 OTW event participants will earn cabbages based on where they finish  
 >     (Typically 🥇 200 🥈 150 🥉 100)
-> - <:Check:1291164107554422815> Recruiting someone new into the clan earns 25 Cabbages (they must join Discord and the in-game clan)
-> - <:BINGO:1202012145219538994> Active bingo participants will earn cabbages based on where they finish
-> - <:heart:646398269915791391>  Hosting a meaningful event earns a variable number depending on the event. Events must be discussed and agreed with Moderators / Admins before being hosted to count
-> - :mag: Sporadic bounties earn variable numbers (ex. 'first person to get a pair of ranger boots will earn 10 cabbages', or 'first person to find <@138705528455954433> earns 20 cabbages')
+> - :chart_with_upwards_trend: Recruiting someone new into the clan earns 25 Cabbages (they must join Discord and the in-game clan)
+> - <app_emoji:bingo> Active bingo participants will earn cabbages based on where they finish
+> - <app_emoji:pepe_heart>  Hosting a meaningful event earns a variable number depending on the event. Events must be discussed and agreed with Moderators / Admins before being hosted to count
+> - <app_emoji:casket> Sporadic bounties earn variable numbers (ex. 'first person to get a pair of ranger boots will earn 10 cabbages', or 'first person to find <@138705528455954433> earns 20 cabbages')
 
-## <:cabbageclassic:822481888320159775> Bonus Cabbages <:cabbageclassic:822481888320159775>
+## <app_emoji:cabbage> Bonus Cabbages <app_emoji:cabbage>
 
 We will also give you some one-off bonus cabbages for specific account progression milestones (you can chose which account to have count for each bonus).
 
-> - <:maxCape:894132463281012776> Achieving Max Cape earns 100 Cabbages
-> - <:Inferno:745534546820333669> Achieving Inferno Cape earns 100 Cabbages
-> - <:Quiver:1288196926805905509> Achieving Quiver earns 100 Cabbages
-> - <:Blorva:1322872291897511936> Achieving Ancient Blood Ornament Kit earns 100 Cabbages
-> - <:Radiant:1449698968819863736> Achieving Purifying Sigil earns 100 Cabbages
-> - <:QuestPoint:1291163775415877663> Achieving Quest Point Cape earns 100 Cabbages
-> - <:Achievement_Diaries:1288198113583956129> Your highest Achievement Diary tier completed across all diaries earns the respective points:
+> - <app_emoji:max_cape> Achieving Max Cape earns 100 Cabbages
+> - <app_emoji:infernal_cape> Achieving Inferno Cape earns 100 Cabbages
+> - <app_emoji:quiver> Achieving Quiver earns 100 Cabbages
+> - <app_emoji:ancient_blood_ornament_kit> Achieving Ancient Blood Ornament Kit earns 100 Cabbages
+> - <app_emoji:purifying_sigil> Achieving Purifying Sigil earns 100 Cabbages
+> - <app_emoji:quest_point> Achieving Quest Point Cape earns 100 Cabbages
+> - <app_emoji:achievement_diaries> Your highest Achievement Diary tier completed across all diaries earns the respective points:
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100)
-> - <:Combat_achievements:1288198896362717256> Your highest Combat Achievement tier (points-based) earns the respective number of points:  
+> - <app_emoji:combat_achievements> Your highest Combat Achievement tier (points-based) earns the respective number of points:  
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100 | Master 150 | Grandmaster 250)
-> - <:Collection_log:1288197743805730970> Every 100 Collection Log slots filled earn 25 cabbages
+> - <app_emoji:collection_log> Every 100 Collection Log slots filled earn 25 cabbages
 > - 🎉 Every 500th Collection Log slot that is filled earns a bonus 50 Cabbages
 
 *Note that all the numbers above are subject to change at any time to better balance the rank system! Thanks for your understanding.*
@@ -90,11 +90,11 @@ We try to automate everything as much as possible, but certain things require yo
 
 The following is a list of which bonus cabbage tasks require manual submission (if something isn't on this list it will automatically get added to your account the next time our system updates it -- if you are itching to get your cabbages ASAP, feel free to open a ticket and a mod can manually trigger an update for your account!)
 
-> - <:Blorva:1322872291897511936> Ancient Blood Ornament Kit
-> - <:Radiant:1449698968819863736> Purifying Sigil
-> - <:QuestPoint:1291163775415877663> Quest Point Cape
-> - <:Achievement_Diaries:1288198113583956129> Highest Achievement Diary tier completed across all diaries
-> - <:Combat_achievements:1288198896362717256> Highest Combat Achievement tier achieved via points
+> - <app_emoji:ancient_blood_ornament_kit> Ancient Blood Ornament Kit
+> - <app_emoji:purifying_sigil> Purifying Sigil
+> - <app_emoji:quest_point> Quest Point Cape
+> - <app_emoji:achievement_diaries> Highest Achievement Diary tier completed across all diaries
+> - <app_emoji:combat_achievements> Highest Combat Achievement tier achieved via points
 
 ## Viewing Your Stats
 
@@ -104,4 +104,4 @@ __\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 If you have any questions, find an issue with the system, or need help with anything at all, go to <#1138926885649260674> and use the 'Help' button.
 
-~ The Bekt Staff <:cabbageheart:822478972415639592>
+~ The Bekt Staff <app_emoji:cabbage>
