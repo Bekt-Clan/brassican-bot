@@ -69,7 +69,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
     // Check if user is already registered with this WOM ID
     try {
         const memberFromWOMID = await Member.findOne({
-            womID: womResult.id,
+            womID: womResult.id.toString(),
         });
 
         if (memberFromWOMID) {

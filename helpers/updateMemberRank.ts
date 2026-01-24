@@ -6,7 +6,7 @@ import {
     TextChannel,
 } from 'discord.js';
 
-import { PlayerDetails } from '@wise-old-man/utils';
+import { PlayerDetailsResponse } from '@wise-old-man/utils';
 import { getWOMClient } from '../config/wom';
 import { IMember, Member } from '../models/member';
 import { Environment } from '../services/environment';
@@ -31,7 +31,7 @@ export const updateMemberRank = async (
     } as { [key: string]: string };
 
     let memberData: IMember | null;
-    let playerDetails: PlayerDetails | null;
+    let playerDetails: PlayerDetailsResponse | null;
     try {
         memberData = await Member.findOne({
             discordID: memberDiscordId,
