@@ -5,7 +5,7 @@
     "description": "A discord bot that manages the custom rank system for the Bekt clan.",
     "main": "index.ts",
     "scripts": {
-        "test": "jest",
+        "test": "vitest run",
         "start": "tsx index.ts",
         "format": "prettier --config .prettierrc **/*.ts --write --check",
         "lint": "eslint --flag unstable_ts_config"
@@ -25,7 +25,6 @@
     "homepage": "https://github.com/tomking/brassican-bot#readme",
     "dependencies": {
         "@faker-js/faker": "^10.1.0",
-        "@swc/jest": "^0.2.39",
         "@typescript-eslint/eslint-plugin": "^8.0.0",
         "@typescript-eslint/parser": "^8.0.0",
         "@wise-old-man/utils": "^4.0.7",
@@ -34,9 +33,7 @@
         "eslint": "^9.39.2",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-jest": "^29.5.0",
         "eslint-plugin-prettier": "^5.5.4",
-        "jest": "^30.2.0",
         "jiti": "^2.6.1",
         "joi": "^18.0.2",
         "migrate-mongo": "^14.0.7",
@@ -48,8 +45,8 @@
         "zod": "^4.2.0"
     },
     "devDependencies": {
-        "@types/jest": "^30.0.0",
         "@types/migrate-mongo": "^10.0.6",
-        "@types/node-cron": "^3.0.11"
+        "@types/node-cron": "^3.0.11",
+        "vitest": "^4.0.18"
     }
 }

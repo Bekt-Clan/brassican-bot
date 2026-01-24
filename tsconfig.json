@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "strict": true,
-        "typeRoots": [
-            "node_modules/@types"
-        ],
+        "types": ["node", "vitest/globals"],
         "experimentalDecorators": true,
         "module": "commonjs",
         "noImplicitAny": true,

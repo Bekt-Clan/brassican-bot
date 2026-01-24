@@ -1,22 +1,24 @@
+import { ChatInputCommandInteraction } from 'discord.js';
+import type { Mock } from 'vitest';
+
 import { execute } from './approve';
 import { Member } from '../../models/member';
-import { ChatInputCommandInteraction } from 'discord.js';
 
-jest.mock('../../models/member');
+vi.mock('../../models/member');
 
 describe('commands | staff | approve', () => {
     let interaction: ChatInputCommandInteraction;
-    let accessMock: jest.Mock;
+    let accessMock: Mock;
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
 
-        accessMock = jest.fn();
+        accessMock = vi.fn();
         interaction = {
-            deferReply: jest.fn(),
-            editReply: jest.fn(),
+            deferReply: vi.fn(),
+            editReply: vi.fn(),
             options: {
-                getUser: jest.fn().mockReturnValue({ id: '123' }),
+                getUser: vi.fn().mockReturnValue({ id: '123' }),
             },
             member: {
                 roles: {
@@ -53,7 +55,7 @@ describe('commands | staff | approve', () => {
 
     test('When the member cannot be found, then the command should notify that the user is not registered', async () => {
         // Arrange
-        (Member.findOne as jest.Mock).mockResolvedValue(null);
+        (Member.findOne as Mock).mockResolvedValue(null);
 
         // Act
         await execute(interaction);

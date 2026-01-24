@@ -1,15 +1,16 @@
 import { faker } from '@faker-js/faker';
-
-import { PlayerDetails } from '@wise-old-man/utils';
+import { PlayerDetailsResponse } from '@wise-old-man/utils';
 import { Client } from 'discord.js';
+import type { Mock } from 'vitest';
+
 import { getWOMClient } from '../config/wom';
 import { IMember, Member } from '../models/member';
 import { DeepPartial } from '../utils/deepPartial';
 import { updateMemberRank } from './updateMemberRank';
 
-jest.mock('../models/member');
-jest.mock('../config/wom');
-jest.mock('../services/environment', () => ({
+vi.mock('../models/member');
+vi.mock('../config/wom');
+vi.mock('../services/environment', () => ({
     Environment: {},
 }));
 
@@ -19,17 +20,17 @@ describe('helpers | updateMemberRank', () => {
 
     const TestHelper = {
         userHasAccountInfo: (member: DeepPartial<IMember>) => {
-            (Member.findOne as jest.Mock).mockReturnValueOnce({
+            (Member.findOne as Mock).mockReturnValueOnce({
                 womID: faker.number.int().toString(),
                 discordID: memberDiscordId,
                 ...member,
-                save: jest.fn(),
+                save: vi.fn(),
             });
         },
-        userHasWOMData: (playerDetails: DeepPartial<PlayerDetails>) => {
-            (getWOMClient as jest.Mock).mockReturnValueOnce({
+        userHasWOMData: (playerDetails: DeepPartial<PlayerDetailsResponse>) => {
+            (getWOMClient as Mock).mockReturnValueOnce({
                 players: {
-                    getPlayerDetailsById: jest
+                    getPlayerDetailsById: vi
                         .fn()
                         .mockReturnValueOnce(playerDetails),
                 },
@@ -37,36 +38,36 @@ describe('helpers | updateMemberRank', () => {
         },
         expectAccountInfoToContain: (member: DeepPartial<IMember>) => {
             expect(
-                (Member.findOne as jest.Mock).mock.results[0].value
+                (Member.findOne as Mock).mock.results[0].value
             ).toMatchObject(member);
         },
     };
 
     beforeEach(() => {
-        jest.resetAllMocks();
+        vi.resetAllMocks();
 
         memberDiscordId = faker.number.int().toString();
         discordClient = {
             users: {
                 cache: {
-                    get: jest.fn().mockReturnValue({ send: jest.fn() }),
+                    get: vi.fn().mockReturnValue({ send: vi.fn() }),
                 },
             },
             channels: {
-                cache: { get: jest.fn().mockReturnValue({ send: jest.fn() }) },
+                cache: { get: vi.fn().mockReturnValue({ send: vi.fn() }) },
             },
             guilds: {
-                fetch: jest.fn().mockResolvedValue({
+                fetch: vi.fn().mockResolvedValue({
                     members: {
-                        fetch: jest.fn().mockResolvedValue({
+                        fetch: vi.fn().mockResolvedValue({
                             roles: {
                                 cache: {
-                                    get: jest.fn().mockReturnValue({
+                                    get: vi.fn().mockReturnValue({
                                         id: memberDiscordId,
                                     }),
                                 },
-                                add: jest.fn(),
-                                remove: jest.fn(),
+                                add: vi.fn(),
+                                remove: vi.fn(),
                             },
                         }),
                     },
@@ -259,10 +260,10 @@ describe('helpers | updateMemberRank', () => {
         const RSN = faker.person.fullName();
 
         const rankUpdatesChannelMock = {
-            send: jest.fn(),
+            send: vi.fn(),
         };
 
-        (discordClient.channels.cache.get as jest.Mock).mockReturnValue(
+        (discordClient.channels.cache.get as Mock).mockReturnValue(
             rankUpdatesChannelMock
         );
 
