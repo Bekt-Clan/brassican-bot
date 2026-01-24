@@ -7,6 +7,7 @@ import {
     SlashCommandBuilder,
     REST,
     Routes,
+    ClientApplication,
 } from 'discord.js';
 
 import { Environment } from './services/environment';
@@ -26,6 +27,7 @@ type DiscordEventDetails = {
 
 export type ModifiedDiscordClient = Client & {
     commands?: Collection<string, DiscordCommandDetails>;
+    application: ClientApplication | null;
 };
 
 let client: ModifiedDiscordClient;
