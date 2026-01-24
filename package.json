@@ -8,7 +8,8 @@
         "test": "vitest run",
         "start": "tsx index.ts",
         "format": "prettier --config .prettierrc **/*.ts --write --check",
-        "lint": "eslint --flag unstable_ts_config"
+        "lint": "eslint",
+        "build": "tsc"
     },
     "engines": {
         "node": ">=18"
@@ -32,6 +33,7 @@
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
+        "eslint-plugin-vitest": "^0.5.4",
         "jiti": "^2.6.1",
         "joi": "^18.0.2",
         "migrate-mongo": "^14.0.7",

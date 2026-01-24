@@ -21,9 +21,6 @@ export const initialize = () => {
                 } ms)`
             );
         },
-        {
-            scheduled: true,
-            timezone: 'UTC',
-        }
+        { timezone: 'UTC' }
     );
 };
