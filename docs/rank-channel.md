@@ -64,14 +64,14 @@ We also want your rank to represent how active you are in the clan. To achieve t
 We will also give you some one-off bonus cabbages for specific account progression milestones (you can chose which account to have count for each bonus).
 
 > - <app_emoji:max_cape> Achieving Max Cape earns 100 Cabbages
-> - <app_emoji:infernal_cape> Achieving Inferno Cape earns 100 Cabbages
+> - <app_emoji:infernal_cape> Achieving Infernal cape earns 100 Cabbages
 > - <app_emoji:quiver> Achieving Quiver earns 100 Cabbages
-> - <app_emoji:ancient_blood_ornament_kit> Achieving Ancient Blood Ornament Kit earns 100 Cabbages
-> - <app_emoji:purifying_sigil> Achieving Purifying Sigil earns 100 Cabbages
-> - <app_emoji:quest_point> Achieving Quest Point Cape earns 100 Cabbages
-> - <app_emoji:achievement_diaries> Your highest Achievement Diary tier completed across all diaries earns the respective points:
+> - <app_emoji:ancient_blood_ornament_kit> Achieving Ancient blood ornament kit earns 100 Cabbages
+> - <app_emoji:purifying_sigil> Achieving Purifying sigil earns 100 Cabbages
+> - <app_emoji:quest_point> Achieving Quest point cape earns 100 Cabbages
+> - <app_emoji:achievement_diaries> Your highest Achievement Diary tier completed for all diaries earns the respective points:
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100)
-> - <app_emoji:combat_achievements> Your highest Combat Achievement tier (points-based) earns the respective number of points:  
+> - <app_emoji:combat_achievements> Your highest unlocked Combat Achievement reward tier earns the respective number of points:  
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100 | Master 150 | Grandmaster 250)
 > - <app_emoji:collection_log> Every 100 Collection Log slots filled earn 25 cabbages
 > - 🎉 Every 500th Collection Log slot that is filled earns a bonus 50 Cabbages
@@ -90,11 +90,11 @@ We try to automate everything as much as possible, but certain things require yo
 
 The following is a list of which bonus cabbage tasks require manual submission (if something isn't on this list it will automatically get added to your account the next time our system updates it -- if you are itching to get your cabbages ASAP, feel free to open a ticket and a mod can manually trigger an update for your account!)
 
-> - <app_emoji:ancient_blood_ornament_kit> Ancient Blood Ornament Kit
-> - <app_emoji:purifying_sigil> Purifying Sigil
-> - <app_emoji:quest_point> Quest Point Cape
-> - <app_emoji:achievement_diaries> Highest Achievement Diary tier completed across all diaries
-> - <app_emoji:combat_achievements> Highest Combat Achievement tier achieved via points
+> - <app_emoji:ancient_blood_ornament_kit> Ancient blood ornament kit
+> - <app_emoji:purifying_sigil> Purifying sigil
+> - <app_emoji:quest_point> Quest point cape
+> - <app_emoji:achievement_diaries> Highest Achievement Diary tier completed for all diaries
+> - <app_emoji:combat_achievements> Highest unlocked Combat Achievements reward tier
 
 ## Viewing Your Stats
 
