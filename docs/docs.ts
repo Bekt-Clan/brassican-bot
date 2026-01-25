@@ -3,6 +3,7 @@ import { TextChannel } from 'discord.js';
 import { getDiscordClient } from '../discord';
 import * as fs from 'node:fs';
 import * as nodePath from 'node:path';
+import { findApplicationEmoji } from '../helpers/emojis';
 
 const __dirname = nodePath.resolve();
 const MINIMUM_MESSAGE_LENGTH = 1200;
@@ -40,10 +41,17 @@ const getLastUpdateDocs = (channelName: string): Date => {
 const isHeader = (text: string): boolean =>
     /^\*\*/.test(text) || /^#+\s+/.test(text);
 
+const resolveEmojis = (text: string): string => {
+    return text.replace(
+        /\<app_emoji:([\w-]+)\>/g,
+        (_, name) => findApplicationEmoji(name).toString()
+    );
+};
+
 const parseFileContents = (path: string): string[] => {
     const content = fs.readFileSync(path, 'utf8');
-    // Normalize the content by removing extra newlines
-    const lines = content
+    // Add emojis and normalize the content by removing extra newlines
+    const lines = resolveEmojis(content)
         .split(/\r\n|\n|\r/)
         .filter((line) => line !== '')
         .map((line) => line.concat('\n'));

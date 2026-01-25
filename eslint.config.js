@@ -1,9 +1,12 @@
 import tseslint from 'typescript-eslint';
-import jestlint from 'eslint-plugin-jest';
+import vitestlint from 'eslint-plugin-vitest';
 
 export default tseslint.config(
     ...tseslint.configs.recommended,
-    jestlint.configs['flat/recommended'],
+    vitestlint.configs['recommended'],
+    {
+        ignores: ['build/**', 'node_modules/**'],
+    },
     {
         files: ['**/*.ts'],
         rules: {
@@ -42,10 +45,10 @@ export default tseslint.config(
     {
         files: ['**/*.test.ts'],
         rules: {
-            'jest/expect-expect': 'off',
-            'jest/require-top-level-describe': 'error',
-            'jest/consistent-test-it': ['error', { fn: 'test' }],
-            'jest/valid-title': [
+            'vitest/expect-expect': 'off',
+            'vitest/require-top-level-describe': 'error',
+            'vitest/consistent-test-it': ['error', { fn: 'test' }],
+            'vitest/valid-title': [
                 'warn',
                 {
                     mustNotMatch: [

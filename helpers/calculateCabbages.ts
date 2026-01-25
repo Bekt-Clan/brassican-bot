@@ -1,10 +1,10 @@
-import { PlayerDetails } from '@wise-old-man/utils';
+import { PlayerDetailsResponse } from '@wise-old-man/utils';
 import * as Configuration from '../config.json';
 import { IMember } from '../models/member';
 
 export const getCabbageBreakdown = (
     memberData: IMember,
-    playerDetails?: PlayerDetails
+    playerDetails?: PlayerDetailsResponse
 ) => {
     const configCabbages = Configuration.cabbages;
 
