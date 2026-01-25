@@ -69,7 +69,7 @@ We will also give you some one-off bonus cabbages for specific account progressi
 > - <app_emoji:ancient_blood_ornament_kit> Achieving Ancient blood ornament kit earns 100 Cabbages
 > - <app_emoji:purifying_sigil> Achieving Purifying sigil earns 100 Cabbages
 > - <app_emoji:quest_point> Achieving Quest point cape earns 100 Cabbages
-> - <app_emoji:achievement_diaries> Your highest Achievement Diary tier completed for all diaries earns the respective points:
+> - <app_emoji:achievement_diaries> Your highest Achievement Diary tier completed for all diaries earns the respective points:  
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100)
 > - <app_emoji:combat_achievements> Your highest unlocked Combat Achievement reward tier earns the respective number of points:  
 >     (Easy 10 | Medium 25 | Hard 50 | Elite 100 | Master 150 | Grandmaster 250)
