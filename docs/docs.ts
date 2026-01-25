@@ -4,6 +4,7 @@ import { getDiscordClient } from '../discord';
 import * as fs from 'node:fs';
 import * as nodePath from 'node:path';
 import { findApplicationEmoji } from '../helpers/emojis';
+import { sleep } from '../utils/sleep';
 
 const __dirname = nodePath.resolve();
 const MINIMUM_MESSAGE_LENGTH = 1200;
@@ -42,9 +43,8 @@ const isHeader = (text: string): boolean =>
     /^\*\*/.test(text) || /^#+\s+/.test(text);
 
 const resolveEmojis = (text: string): string => {
-    return text.replace(
-        /\<app_emoji:([\w-]+)\>/g,
-        (_, name) => findApplicationEmoji(name).toString()
+    return text.replace(/\<app_emoji:([\w-]+)\>/g, (_, name) =>
+        findApplicationEmoji(name).toString()
     );
 };
 
@@ -99,10 +99,12 @@ const repostMessages = async (channelID: string, messages: string[]) => {
     let firstMessageId;
     for (const [index, msg] of messages.entries()) {
         const postedMessage = await channel.send(msg);
+        await sleep(500);
         if (index === 0) {
             firstMessageId = postedMessage.id;
         }
     }
+
     const link = `https://discord.com/channels/${Environment.GUILD_ID}/${channelID}/${firstMessageId}`;
     await channel.send(
         `:arrow_up: [Click Here to Jump to the Top](${link}) :arrow_up:`
