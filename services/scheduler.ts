@@ -13,13 +13,14 @@ export const initialize = () => {
                 `Running scheduled job to update all member's cabbage counts`
             );
             const startTime = performance.now();
-            updateAllMemberRanks(client);
-            const endTime = performance.now();
-            console.log(
-                `Scheduled job to update all member's cabbage counts is complete (This took ${
-                    endTime - startTime
-                } ms)`
-            );
+            updateAllMemberRanks(client).then(() => {
+                const endTime = performance.now();
+                console.log(
+                    `Scheduled job to update all member's cabbage counts is complete (This took ${
+                        endTime - startTime
+                    } ms)`
+                );
+            });
         },
         { timezone: 'UTC' }
     );
