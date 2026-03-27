@@ -2,10 +2,11 @@ import * as cron from 'node-cron';
 
 import { updateAllMemberRanks } from '../helpers/updateAllMemberRanks';
 import { getDiscordClient } from '../discord';
+import { checkScheduledCommands } from './scheduledCommands';
 
 export const initialize = () => {
-    // Schedule a job to run every Monday at 00:00 UTC to update all member's cabbage counts
     const client = getDiscordClient();
+
     cron.schedule(
         '0 0 * * 1',
         () => {
@@ -24,4 +25,12 @@ export const initialize = () => {
         },
         { timezone: 'UTC' }
     );
+
+    cron.schedule('*/5 * * * *', () => {
+        checkScheduledCommands(client);
+    });
+
+    checkScheduledCommands(client).then(() => {
+        console.log('Initial scheduled commands check complete');
+    });
 };
