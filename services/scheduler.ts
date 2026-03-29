@@ -2,10 +2,14 @@ import * as cron from 'node-cron';
 
 import { updateAllMemberRanks } from '../helpers/updateAllMemberRanks';
 import { getDiscordClient } from '../discord';
+import {
+    reschedulePersistedCommands,
+    checkAndExecuteHangingCommands,
+} from './scheduledCommands';
 
 export const initialize = () => {
-    // Schedule a job to run every Monday at 00:00 UTC to update all member's cabbage counts
     const client = getDiscordClient();
+
     cron.schedule(
         '0 0 * * 1',
         () => {
@@ -21,6 +25,18 @@ export const initialize = () => {
                     } ms)`
                 );
             });
+        },
+        { timezone: 'UTC' }
+    );
+
+    reschedulePersistedCommands(client).then(() => {
+        console.log('Persisted scheduled commands loaded');
+    });
+
+    cron.schedule(
+        '0 0 * * *',
+        () => {
+            checkAndExecuteHangingCommands(client);
         },
         { timezone: 'UTC' }
     );

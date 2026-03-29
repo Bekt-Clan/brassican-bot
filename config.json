@@ -11,6 +11,26 @@
         "Onyx",
         "Zenyte"
     ],
+    "temporaryRanks": {
+        "INFERNAL_CAPE": {
+            "displayName": "Infernal cape",
+            "description": "Recently completed first inferno",
+            "emojiName": "infernal_cape",
+            "fallbackEmoji": "🔥"
+        },
+        "MAX_CAPE": {
+            "displayName": "Max cape",
+            "description": "Recently maxed",
+            "emojiName": "max_cape",
+            "fallbackEmoji": "🧙‍♂️"
+        },
+        "CABBAGE_RANK": {
+            "displayName": "Cabbage rank",
+            "description": "Current OTW/event winner",
+            "emojiName": "cabbage",
+            "fallbackEmoji": "🥬"
+        }
+    },
     "cabbages": {
         "ad": {
             "EASY": 10,

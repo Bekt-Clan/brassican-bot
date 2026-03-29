@@ -1,5 +1,5 @@
 import tseslint from 'typescript-eslint';
-import vitestlint from 'eslint-plugin-vitest';
+import vitestlint from '@vitest/eslint-plugin';
 
 export default tseslint.config(
     ...tseslint.configs.recommended,
