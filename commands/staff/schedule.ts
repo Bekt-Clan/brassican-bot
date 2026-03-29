@@ -1,7 +1,6 @@
 import {
     ChatInputCommandInteraction,
     GuildMember,
-    Role,
     SlashCommandBuilder,
     TextChannel,
     EmbedBuilder,
@@ -22,8 +21,15 @@ import {
     cancelScheduledCommand,
     getActiveScheduledCommands,
 } from '../../services/scheduledCommands';
-import { TEMPORARY_RANK_TYPE } from '../../models/scheduledCommand';
+import { IScheduledCommand } from '../../models/scheduledCommand';
+import {
+    getTemporaryRankDisplayName,
+    isTemporaryRankType,
+    TEMPORARY_RANKS,
+    TEMPORARY_RANK_TYPES,
+} from '../../config/temporaryRanks';
 import { findApplicationEmoji } from '../../helpers/emojis';
+import { isStaff } from '../../helpers/isStaff';
 
 export const data = new SlashCommandBuilder()
     .setName('schedule')
@@ -52,24 +58,6 @@ export const data = new SlashCommandBuilder()
             )
     );
 
-const isStaff = (member: GuildMember): boolean => {
-    return member.roles.cache.some(
-        (role: Role) =>
-            role.id === Environment.DISCORD_MOD_ROLE_ID ||
-            role.id === Environment.DISCORD_CA_ROLE_ID ||
-            role.id === Environment.DISCORD_ADMIN_ROLE_ID
-    );
-};
-
-const getRankDisplayName = (rankType: string): string => {
-    const rankMap: Record<string, string> = {
-        INFERNAL_CAPE: 'Infernal Cape',
-        MAX_CAPE: 'Max Cape',
-        CABBAGE_RANK: 'Cabbage Rank',
-    };
-    return rankMap[rankType] || rankType;
-};
-
 const handleAdd = async (interaction: ChatInputCommandInteraction) => {
     if (!isStaff(interaction.member as GuildMember)) {
         await interaction.reply({
@@ -91,33 +79,25 @@ const handleAdd = async (interaction: ChatInputCommandInteraction) => {
     const rankTypeSelect = new StringSelectMenuBuilder()
         .setCustomId('rankType')
         .setPlaceholder('Select a rank type')
-        .setRequired(true)
-        .addOptions(
+        .setRequired(true);
+
+    for (const rankType of TEMPORARY_RANK_TYPES) {
+        const rankConfig = TEMPORARY_RANKS[rankType];
+
+        rankTypeSelect.addOptions(
             new StringSelectMenuOptionBuilder()
-                .setLabel('Infernal Cape')
-                .setDescription('Recently completed first inferno')
-                .setValue('INFERNAL_CAPE')
+                .setLabel(rankConfig.displayName)
+                .setDescription(rankConfig.description)
+                .setValue(rankType)
                 .setEmoji(
-                    (findApplicationEmoji('infernal_cape') as ApplicationEmoji)
-                        .id || '🔥'
-                ),
-            new StringSelectMenuOptionBuilder()
-                .setLabel('Max Cape')
-                .setDescription('Recently maxed')
-                .setValue('MAX_CAPE')
-                .setEmoji(
-                    (findApplicationEmoji('max_cape') as ApplicationEmoji).id ||
-                        '🧙‍♂️'
-                ),
-            new StringSelectMenuOptionBuilder()
-                .setLabel('Cabbage Rank')
-                .setDescription('Current OTW/event winner')
-                .setValue('CABBAGE_RANK')
-                .setEmoji(
-                    (findApplicationEmoji('cabbage') as ApplicationEmoji).id ||
-                        '🥬'
+                    (
+                        findApplicationEmoji(
+                            rankConfig.emojiName
+                        ) as ApplicationEmoji
+                    ).id || rankConfig.fallbackEmoji
                 )
         );
+    }
 
     const durationInput = new TextInputBuilder()
         .setCustomId('duration')
@@ -163,29 +143,53 @@ const handleList = async (interaction: ChatInputCommandInteraction) => {
             return;
         }
 
+        const buildFieldValue = (command: IScheduledCommand): string => {
+            const unixTimestamp = Math.floor(
+                command.executeAt.getTime() / 1000
+            );
+
+            switch (command.type) {
+                case 'TEMPORARY_RANK': {
+                    const rankType = command.metadata?.rankType;
+                    let rankLine = '';
+
+                    if (rankType) {
+                        const rankConfig = TEMPORARY_RANKS[rankType];
+                        const emoji = findApplicationEmoji(
+                            rankConfig.emojiName
+                        ) as ApplicationEmoji;
+                        const emojiStr =
+                            emoji?.toString() ?? rankConfig.fallbackEmoji;
+                        rankLine = `\n**Rank:** ${emojiStr} ${getTemporaryRankDisplayName(rankType)}`;
+                    }
+
+                    return [
+                        `**Type:** Temporary Rank`,
+                        `**User:** <@${command.discordID}>${rankLine}`,
+                        `**Executes:** <t:${unixTimestamp}:f>`,
+                        `**Created by:** <@${command.createdBy}>`,
+                    ].join('\n');
+                }
+
+                default:
+                    return [
+                        `**Type:** ${command.type}`,
+                        `**User:** <@${command.discordID}>`,
+                        `**Executes:** <t:${unixTimestamp}:f>`,
+                        `**Created by:** <@${command.createdBy}>`,
+                    ].join('\n');
+            }
+        };
+
         const embed = new EmbedBuilder()
             .setTitle('Active Scheduled Commands')
             .setColor(0x00ff00)
             .setTimestamp();
 
-        for (const command of scheduledCommands) {
-            const unixTimestamp = Math.floor(
-                command.executeAt.getTime() / 1000
-            );
-
-            let fieldValue = `**Type:** ${command.type}\n`;
-            fieldValue += `**User:** <@${command.discordID}>\n`;
-
-            if (command.rankType) {
-                fieldValue += `**Rank:** ${getRankDisplayName(command.rankType)}\n`;
-            }
-
-            fieldValue += `**Executes:** <t:${unixTimestamp}:f>\n`;
-            fieldValue += `**Created by:** <@${command.createdBy}>`;
-
+        for (let i = 0; i < scheduledCommands.length; i++) {
             embed.addFields({
-                name: `ID: ${command._id}`,
-                value: fieldValue,
+                name: `ID: ${scheduledCommands[i]._id}`,
+                value: buildFieldValue(scheduledCommands[i]),
                 inline: false,
             });
         }
@@ -285,7 +289,12 @@ export const handleModalSubmit = async (
         return;
     }
 
-    const rankType = rankTypeInput as TEMPORARY_RANK_TYPE;
+    if (!isTemporaryRankType(rankTypeInput)) {
+        await interaction.editReply('Invalid rank type selection.');
+        return;
+    }
+
+    const rankType = rankTypeInput;
 
     const duration = parseInt(durationInput, 10);
     if (isNaN(duration) || duration < 1 || duration > 365) {
@@ -311,7 +320,7 @@ export const handleModalSubmit = async (
         );
 
         await interaction.editReply(
-            `Successfully gave ${targetUser.toString()} the **${getRankDisplayName(rankType)}** rank for ${duration} day(s).\n\n` +
+            `Successfully gave ${targetUser.toString()} the **${getTemporaryRankDisplayName(rankType)}** rank for ${duration} day(s).\n\n` +
                 `The rank will be automatically removed on <t:${unixTimestamp}:f>.\n` +
                 `Scheduled command ID: \`${scheduledCommand._id}\``
         );
@@ -323,7 +332,7 @@ export const handleModalSubmit = async (
         if (logChannel) {
             logChannel.send(
                 `${interaction.member?.toString()} scheduled a temporary rank for ${targetUser.toString()}:\n` +
-                    `- Rank: **${getRankDisplayName(rankType)}**\n` +
+                    `- Rank: **${getTemporaryRankDisplayName(rankType)}**\n` +
                     `- Duration: ${duration} day(s)\n` +
                     `- Removal date: <t:${unixTimestamp}:f>\n` +
                     `- ID: \`${scheduledCommand._id}\``

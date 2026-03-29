@@ -119,11 +119,10 @@ export const updateMemberRank = async (
             Environment.RANK_UPDATES_CHANNEL
         ) as TextChannel;
 
-        const RSN =
-            playerDetails.displayName || playerDetails.username || 'unknown';
+        const rsn = playerDetails.displayName || playerDetails.username;
 
         rankUpdatesChannel.send({
-            content: `<@${memberData.discordID}> (RSN: \`${RSN}\`) needs their rank in game updated to: ${newRank}`,
+            content: `<@${memberData.discordID}> (RSN: \`${rsn || 'unknown'}\`) needs their rank in game updated to: ${newRank}`,
             components: [row],
         });
     }

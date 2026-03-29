@@ -8,12 +8,17 @@ import {
 import {
     IScheduledCommand,
     ScheduledCommand,
-    TEMPORARY_RANK_TYPE,
 } from '../models/scheduledCommand';
+import {
+    getTemporaryRankDisplayName,
+    TEMPORARY_RANK_TYPE,
+} from '../config/temporaryRanks';
 import { Environment } from './environment';
 import { Member } from '../models/member';
 import { mapPointsToRank } from '../helpers/mapPointsToRank';
-import { getWOMClient } from '../config/wom';
+import { getRsnByWomId } from '../helpers/wom';
+import * as schedule from 'node-schedule';
+import { addJob, removeJob } from '../stores/scheduler';
 
 const removeTemporaryRank = async (discordID: string, client: Client) => {
     try {
@@ -21,14 +26,7 @@ const removeTemporaryRank = async (discordID: string, client: Client) => {
         if (memberData) {
             const correctRank = mapPointsToRank(memberData.currentCabbages);
 
-            const womClient = getWOMClient();
-            const playerDetails = await womClient.players.getPlayerDetailsById(
-                parseInt(memberData.womID, 10)
-            );
-            const RSN =
-                playerDetails.displayName ||
-                playerDetails.username ||
-                'unknown';
+            const rsn = await getRsnByWomId(memberData.womID);
 
             const complete = new ButtonBuilder()
                 .setCustomId('completeRankUpdate')
@@ -45,7 +43,7 @@ const removeTemporaryRank = async (discordID: string, client: Client) => {
 
             if (rankUpdatesChannel) {
                 rankUpdatesChannel.send({
-                    content: `<@${discordID}> (RSN: \`${RSN}\`) needs their temporary rank removed and restored to their correct rank in-game: **${correctRank}**`,
+                    content: `<@${discordID}> (RSN: \`${rsn || 'unknown'}\`) needs their temporary rank removed and restored to their correct rank in-game: **${correctRank}**`,
                     components: [row],
                 });
             }
@@ -63,11 +61,19 @@ const executeScheduledCommand = async (
     client: Client
 ) => {
     try {
-        if (
-            scheduledCommand.type === 'TEMPORARY_RANK' &&
-            scheduledCommand.rankType
-        ) {
-            await removeTemporaryRank(scheduledCommand.discordID, client);
+        switch (scheduledCommand.type) {
+            case 'TEMPORARY_RANK':
+                if (scheduledCommand.metadata?.rankType) {
+                    await removeTemporaryRank(
+                        scheduledCommand.discordID,
+                        client
+                    );
+                }
+                break;
+            default:
+                console.warn(
+                    `Unknown scheduled command type: ${scheduledCommand.type}`
+                );
         }
 
         await ScheduledCommand.findByIdAndDelete(scheduledCommand._id);
@@ -82,31 +88,87 @@ const executeScheduledCommand = async (
     }
 };
 
-const checkScheduledCommands = async (client: Client) => {
-    try {
-        const now = new Date();
-        const commandsToExecute = await ScheduledCommand.find({
-            executeAt: { $lte: now },
-        });
+const scheduleCommandJob = (
+    command: IScheduledCommand,
+    client: Client
+): void => {
+    const job = schedule.scheduleJob(command.executeAt, async () => {
+        await executeScheduledCommand(command, client);
+        removeJob(String(command._id));
+    });
 
-        if (commandsToExecute.length > 0) {
-            console.log(
-                `Found ${commandsToExecute.length} scheduled command(s) ready to execute`
-            );
-        }
-
-        for (const command of commandsToExecute) {
-            await executeScheduledCommand(command, client);
-        }
-    } catch (error) {
-        console.error('Error checking scheduled commands:', error);
+    if (job) {
+        addJob(String(command._id), job);
     }
 };
 
-export { checkScheduledCommands };
+export const reschedulePersistedCommands = async (client: Client) => {
+    try {
+        const now = new Date();
+
+        const overdueCommands = await ScheduledCommand.find({
+            executeAt: { $lte: now },
+        });
+
+        if (overdueCommands.length > 0) {
+            console.log(
+                `Found ${overdueCommands.length} overdue scheduled command(s), executing immediately`
+            );
+        }
+
+        for (const command of overdueCommands) {
+            await executeScheduledCommand(command, client);
+        }
+
+        const futureCommands = await ScheduledCommand.find({
+            executeAt: { $gt: now },
+        });
+
+        if (futureCommands.length > 0) {
+            console.log(
+                `Scheduling ${futureCommands.length} pending scheduled command(s)`
+            );
+        }
+
+        for (const command of futureCommands) {
+            scheduleCommandJob(command, client);
+        }
+    } catch (error) {
+        console.error('Error rescheduling persisted commands:', error);
+    }
+};
+
+export const checkAndExecuteHangingCommands = async (
+    client: Client
+): Promise<void> => {
+    try {
+        const hangingCommands = await ScheduledCommand.find({
+            executeAt: { $lte: new Date() },
+        });
+
+        if (hangingCommands.length > 0) {
+            console.warn(
+                `Warning: Found ${hangingCommands.length} hanging scheduled command(s) that were not executed on time:`,
+                hangingCommands.map((c) => ({
+                    id: c._id,
+                    type: c.type,
+                    executeAt: c.executeAt,
+                }))
+            );
+        }
+
+        for (const command of hangingCommands) {
+            await executeScheduledCommand(command, client);
+        }
+    } catch (error) {
+        console.error('Error checking for hanging commands:', error);
+    }
+};
 
 export const cancelScheduledCommand = async (scheduledCommandId: string) => {
     try {
+        removeJob(scheduledCommandId);
+
         const result =
             await ScheduledCommand.findByIdAndDelete(scheduledCommandId);
 
@@ -145,22 +207,9 @@ export const addTemporaryRank = async (
             throw new Error(`Member not found for Discord ID: ${discordID}`);
         }
 
-        const womClient = getWOMClient();
-        const playerDetails = await womClient.players.getPlayerDetailsById(
-            parseInt(memberData.womID, 10)
-        );
-        const RSN =
-            playerDetails.displayName || playerDetails.username || 'unknown';
+        const rsn = await getRsnByWomId(memberData.womID);
 
-        const rankDisplayName = (() => {
-            const rankNames: Record<TEMPORARY_RANK_TYPE, string> = {
-                INFERNAL_CAPE: 'Infernal Cape',
-                MAX_CAPE: 'Max Cape',
-                CABBAGE_RANK: 'Cabbage',
-            };
-
-            return rankNames[rankType];
-        })();
+        const rankDisplayName = getTemporaryRankDisplayName(rankType);
 
         const complete = new ButtonBuilder()
             .setCustomId('completeRankUpdate')
@@ -177,7 +226,7 @@ export const addTemporaryRank = async (
 
         if (rankUpdatesChannel) {
             rankUpdatesChannel.send({
-                content: `<@${discordID}> (RSN: \`${RSN}\`) needs their temporary rank updated in-game to: **${rankDisplayName}** (temporary for ${durationDays} day${durationDays !== 1 ? 's' : ''})`,
+                content: `<@${discordID}> (RSN: \`${rsn || 'unknown'}\`) needs their temporary rank updated in-game to: **${rankDisplayName}** (temporary for ${durationDays} day${durationDays !== 1 ? 's' : ''})`,
                 components: [row],
             });
         }
@@ -188,12 +237,13 @@ export const addTemporaryRank = async (
         const scheduledCommand = new ScheduledCommand({
             type: 'TEMPORARY_RANK',
             discordID,
-            rankType,
+            metadata: { rankType },
             executeAt,
             createdBy,
         });
 
         await scheduledCommand.save();
+        scheduleCommandJob(scheduledCommand, client);
 
         console.log(
             `Scheduled temporary rank for user ${discordID}: ${rankDisplayName} until ${executeAt.toISOString()}`

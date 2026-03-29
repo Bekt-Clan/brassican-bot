@@ -1,13 +1,15 @@
 import { faker } from '@faker-js/faker';
 import { Client, TextChannel } from 'discord.js';
 import type { Mock } from 'vitest';
+import * as schedule from 'node-schedule';
 
 import { Member } from '../models/member';
 import { ScheduledCommand } from '../models/scheduledCommand';
 import { getWOMClient } from '../config/wom';
 import { mapPointsToRank } from '../helpers/mapPointsToRank';
+import { addJob, removeJob } from '../stores/scheduler';
 import {
-    checkScheduledCommands,
+    reschedulePersistedCommands,
     cancelScheduledCommand,
     getActiveScheduledCommands,
     addTemporaryRank,
@@ -17,6 +19,13 @@ vi.mock('../models/member');
 vi.mock('../models/scheduledCommand');
 vi.mock('../config/wom');
 vi.mock('../helpers/mapPointsToRank');
+vi.mock('node-schedule', () => ({
+    scheduleJob: vi.fn().mockReturnValue({ cancel: vi.fn() }),
+}));
+vi.mock('../stores/scheduler', () => ({
+    addJob: vi.fn(),
+    removeJob: vi.fn(),
+}));
 vi.mock('../services/environment', () => ({
     Environment: {
         RANK_UPDATES_CHANNEL: 'test-channel-id',
@@ -45,41 +54,43 @@ describe('services | scheduledCommands', () => {
         (mapPointsToRank as Mock).mockReturnValue('Ruby');
     });
 
-    describe('checkScheduledCommands', () => {
-        test('When there are no scheduled commands ready, then no commands should be executed', async () => {
+    describe('reschedulePersistedCommands', () => {
+        test('When there are no scheduled commands, then nothing should be executed or scheduled', async () => {
             // Arrange
-            (ScheduledCommand.find as Mock).mockReturnValue([]);
+            (ScheduledCommand.find as Mock)
+                .mockReturnValueOnce([])
+                .mockReturnValueOnce([]);
 
             // Act
-            await checkScheduledCommands(discordClient);
+            await reschedulePersistedCommands(discordClient);
 
             // Assert
-            expect(ScheduledCommand.find).toHaveBeenCalledWith({
-                executeAt: { $lte: expect.any(Date) },
-            });
             expect(ScheduledCommand.findByIdAndDelete).not.toHaveBeenCalled();
+            expect(addJob).not.toHaveBeenCalled();
         });
 
-        test('When there are scheduled commands ready, then they should be executed and deleted', async () => {
+        test('When there are overdue scheduled commands, then they should be executed and deleted', async () => {
             // Arrange
             const mockCommands = [
                 {
                     _id: 'command-1',
                     type: 'TEMPORARY_RANK',
-                    rankType: 'INFERNAL_CAPE',
+                    metadata: { rankType: 'INFERNAL_CAPE' },
                     discordID: '123',
                     executeAt: new Date(Date.now() - 1000),
                 },
                 {
                     _id: 'command-2',
                     type: 'TEMPORARY_RANK',
-                    rankType: 'MAX_CAPE',
+                    metadata: { rankType: 'MAX_CAPE' },
                     discordID: '456',
                     executeAt: new Date(Date.now() - 2000),
                 },
             ];
 
-            (ScheduledCommand.find as Mock).mockReturnValue(mockCommands);
+            (ScheduledCommand.find as Mock)
+                .mockReturnValueOnce(mockCommands)
+                .mockReturnValueOnce([]);
             (Member.findOne as Mock).mockResolvedValue({
                 discordID: '123',
                 womID: '789',
@@ -94,7 +105,7 @@ describe('services | scheduledCommands', () => {
             });
 
             // Act
-            await checkScheduledCommands(discordClient);
+            await reschedulePersistedCommands(discordClient);
 
             // Assert
             expect(ScheduledCommand.findByIdAndDelete).toHaveBeenCalledTimes(2);
@@ -104,19 +115,22 @@ describe('services | scheduledCommands', () => {
             expect(ScheduledCommand.findByIdAndDelete).toHaveBeenCalledWith(
                 'command-2'
             );
+            expect(addJob).not.toHaveBeenCalled();
         });
 
-        test('When executing a temporary rank command, then removal notification should be sent', async () => {
+        test('When executing an overdue temporary rank command, then removal notification should be sent', async () => {
             // Arrange
             const mockCommand = {
                 _id: 'command-1',
                 type: 'TEMPORARY_RANK',
-                rankType: 'INFERNAL_CAPE',
+                metadata: { rankType: 'INFERNAL_CAPE' },
                 discordID: '123',
                 executeAt: new Date(Date.now() - 1000),
             };
 
-            (ScheduledCommand.find as Mock).mockReturnValue([mockCommand]);
+            (ScheduledCommand.find as Mock)
+                .mockReturnValueOnce([mockCommand])
+                .mockReturnValueOnce([]);
             (Member.findOne as Mock).mockResolvedValue({
                 discordID: '123',
                 womID: '789',
@@ -131,7 +145,7 @@ describe('services | scheduledCommands', () => {
             });
 
             // Act
-            await checkScheduledCommands(discordClient);
+            await reschedulePersistedCommands(discordClient);
 
             // Assert
             expect(mockChannel.send).toHaveBeenCalledWith({
@@ -143,10 +157,42 @@ describe('services | scheduledCommands', () => {
                 components: expect.any(Array),
             });
         });
+
+        test('When there are future scheduled commands, then they should be scheduled with node-schedule', async () => {
+            // Arrange
+            const futureCommands = [
+                {
+                    _id: 'command-1',
+                    type: 'TEMPORARY_RANK',
+                    metadata: { rankType: 'INFERNAL_CAPE' },
+                    discordID: '123',
+                    executeAt: new Date(Date.now() + 86400000),
+                },
+                {
+                    _id: 'command-2',
+                    type: 'TEMPORARY_RANK',
+                    metadata: { rankType: 'MAX_CAPE' },
+                    discordID: '456',
+                    executeAt: new Date(Date.now() + 172800000),
+                },
+            ];
+
+            (ScheduledCommand.find as Mock)
+                .mockReturnValueOnce([])
+                .mockReturnValueOnce(futureCommands);
+
+            // Act
+            await reschedulePersistedCommands(discordClient);
+
+            // Assert
+            expect(schedule.scheduleJob).toHaveBeenCalledTimes(2);
+            expect(addJob).toHaveBeenCalledTimes(2);
+            expect(ScheduledCommand.findByIdAndDelete).not.toHaveBeenCalled();
+        });
     });
 
     describe('cancelScheduledCommand', () => {
-        test('When cancelling an existing scheduled command, then it should be deleted and return true', async () => {
+        test('When cancelling an existing scheduled command, then the job should be removed, command deleted, and return true', async () => {
             // Arrange
             const commandId = 'command-123';
             (ScheduledCommand.findByIdAndDelete as Mock).mockResolvedValue({
@@ -157,6 +203,7 @@ describe('services | scheduledCommands', () => {
             const result = await cancelScheduledCommand(commandId);
 
             // Assert
+            expect(removeJob).toHaveBeenCalledWith(commandId);
             expect(ScheduledCommand.findByIdAndDelete).toHaveBeenCalledWith(
                 commandId
             );
@@ -264,9 +311,13 @@ describe('services | scheduledCommands', () => {
                 components: expect.any(Array),
             });
             expect(mockChannel.send).toHaveBeenCalledWith({
-                content: expect.stringContaining('Infernal Cape'),
+                content: expect.stringContaining('Infernal cape'),
                 components: expect.any(Array),
             });
+            expect(addJob).toHaveBeenCalledWith(
+                'new-command-id',
+                expect.anything()
+            );
         });
 
         test('When adding a temporary rank for non-existent member, then an error should be thrown', async () => {
@@ -325,7 +376,7 @@ describe('services | scheduledCommands', () => {
 
             // Assert
             expect(mockChannel.send).toHaveBeenCalledWith({
-                content: expect.stringContaining('Max Cape'),
+                content: expect.stringContaining('Max cape'),
                 components: expect.any(Array),
             });
         });

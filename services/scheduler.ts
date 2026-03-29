@@ -2,7 +2,10 @@ import * as cron from 'node-cron';
 
 import { updateAllMemberRanks } from '../helpers/updateAllMemberRanks';
 import { getDiscordClient } from '../discord';
-import { checkScheduledCommands } from './scheduledCommands';
+import {
+    reschedulePersistedCommands,
+    checkAndExecuteHangingCommands,
+} from './scheduledCommands';
 
 export const initialize = () => {
     const client = getDiscordClient();
@@ -26,11 +29,15 @@ export const initialize = () => {
         { timezone: 'UTC' }
     );
 
-    cron.schedule('*/5 * * * *', () => {
-        checkScheduledCommands(client);
+    reschedulePersistedCommands(client).then(() => {
+        console.log('Persisted scheduled commands loaded');
     });
 
-    checkScheduledCommands(client).then(() => {
-        console.log('Initial scheduled commands check complete');
-    });
+    cron.schedule(
+        '0 0 * * *',
+        () => {
+            checkAndExecuteHangingCommands(client);
+        },
+        { timezone: 'UTC' }
+    );
 };
