@@ -1,13 +1,13 @@
 import {
     ChatInputCommandInteraction,
     GuildMember,
-    Role,
     TextChannel,
     SlashCommandBuilder,
 } from 'discord.js';
 
 import { updateAllMemberRanks } from '../../helpers/updateAllMemberRanks';
 import { Environment } from '../../services/environment';
+import { isStaff } from '../../helpers/isStaff';
 
 export const data = new SlashCommandBuilder()
     .setName('updateall')
@@ -19,14 +19,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
     await interaction.deferReply({ flags: 'Ephemeral' });
 
     // Check if calling user is a member of staff (mod or CA)
-    if (
-        !(interaction.member as GuildMember).roles.cache.some(
-            (role: Role) =>
-                role.id === Environment.DISCORD_MOD_ROLE_ID ||
-                role.id === Environment.DISCORD_CA_ROLE_ID ||
-                role.id === Environment.DISCORD_ADMIN_ROLE_ID
-        )
-    ) {
+    if (!isStaff(interaction.member as GuildMember)) {
         await interaction.editReply(
             'Only members of staff can use this command!'
         );

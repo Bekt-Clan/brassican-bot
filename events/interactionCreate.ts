@@ -2,6 +2,7 @@ import { BaseInteraction, Events, TextChannel } from 'discord.js';
 
 import { Environment } from '../services/environment';
 import { ModifiedDiscordClient } from '../discord';
+import { handleModalSubmit as handleScheduleModalSubmit } from '../commands/staff/schedule';
 
 export const name = Events.InteractionCreate;
 
@@ -23,6 +24,15 @@ export const execute = async (interaction: BaseInteraction) => {
         } catch (error) {
             console.error(`Error executing ${interaction.commandName}`);
             console.error(error);
+        }
+    } else if (interaction.isModalSubmit()) {
+        if (interaction.customId === 'scheduleAddModal') {
+            try {
+                await handleScheduleModalSubmit(interaction);
+            } catch (error) {
+                console.error('Error handling schedule modal submission');
+                console.error(error);
+            }
         }
     } else if (interaction.isButton()) {
         if (interaction.customId === 'completeRankUpdate') {
