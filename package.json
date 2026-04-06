@@ -27,7 +27,7 @@
     "dependencies": {
         "@faker-js/faker": "^10.4.0",
         "@wise-old-man/utils": "^4.0.14",
-        "discord.js": "^14.25.1",
+        "discord.js": "^14.26.2",
         "dotenv": "^17.3.1",
         "eslint": "^10.1.0",
         "eslint-config-google": "^0.14.0",
